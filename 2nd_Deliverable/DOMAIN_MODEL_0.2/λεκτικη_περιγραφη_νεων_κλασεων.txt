@@ -1,0 +1,78 @@
+Class: Screen (abstract)
+Description: Αφαιρετική υπερκλάση για όλες τις οθόνες της εφαρμογής. Χρησιμοποιείται ως βάση για την κληρονομικότητα όλων των UI Screens.
+
+Class: Dashboard_Screen
+Description: Αντιπροσωπεύει την οθόνη 'Dashboard' στην εφαρμογή. Αλληλεπιδρά με τις αντίστοιχες οντότητες σύμφωνα με τα use cases και τα robustness diagrams.
+
+Class: Book_appointment_Screen
+Description: Αντιπροσωπεύει την οθόνη 'Book appointment' στην εφαρμογή. Αλληλεπιδρά με τις αντίστοιχες οντότητες σύμφωνα με τα use cases και τα robustness diagrams.
+
+Class: Results_Screen
+Description: Αντιπροσωπεύει την οθόνη 'Results' στην εφαρμογή. Αλληλεπιδρά με τις αντίστοιχες οντότητες σύμφωνα με τα use cases και τα robustness diagrams.
+
+Class: Registration_Screen
+Description: Αντιπροσωπεύει την οθόνη 'Registration' στην εφαρμογή. Αλληλεπιδρά με τις αντίστοιχες οντότητες σύμφωνα με τα use cases και τα robustness diagrams.
+
+Class: Confirmation_Screen
+Description: Αντιπροσωπεύει την οθόνη 'Confirmation' στην εφαρμογή. Αλληλεπιδρά με τις αντίστοιχες οντότητες σύμφωνα με τα use cases και τα robustness diagrams.
+
+Class: Customer_menu_Screen
+Description: Αντιπροσωπεύει την οθόνη 'Customer menu' στην εφαρμογή. Αλληλεπιδρά με τις αντίστοιχες οντότητες σύμφωνα με τα use cases και τα robustness diagrams.
+
+Class: My_bookings_Screen
+Description: Αντιπροσωπεύει την οθόνη 'My bookings' στην εφαρμογή. Αλληλεπιδρά με τις αντίστοιχες οντότητες σύμφωνα με τα use cases και τα robustness diagrams.
+
+Class: Barbershop1_Screen
+Description: Αντιπροσωπεύει την οθόνη 'Barbershop1' στην εφαρμογή. Αλληλεπιδρά με τις αντίστοιχες οντότητες σύμφωνα με τα use cases και τα robustness diagrams.
+
+Class: Add_review_Screen
+Description: Αντιπροσωπεύει την οθόνη 'Add review' στην εφαρμογή. Αλληλεπιδρά με τις αντίστοιχες οντότητες σύμφωνα με τα use cases και τα robustness diagrams.
+
+Class: Booking_details_Screen
+Description: Αντιπροσωπεύει την οθόνη 'Booking details' στην εφαρμογή. Αλληλεπιδρά με τις αντίστοιχες οντότητες σύμφωνα με τα use cases και τα robustness diagrams.
+
+Class: Favorites_Screen
+Description: Αντιπροσωπεύει την οθόνη 'Favorites' στην εφαρμογή. Αλληλεπιδρά με τις αντίστοιχες οντότητες σύμφωνα με τα use cases και τα robustness diagrams.
+
+Class: Messaging_Screen
+Description: Αντιπροσωπεύει την οθόνη 'Messaging' στην εφαρμογή. Αλληλεπιδρά με τις αντίστοιχες οντότητες σύμφωνα με τα use cases και τα robustness diagrams.
+
+Class: Create_post_Screen
+Description: Αντιπροσωπεύει την οθόνη 'Create post' στην εφαρμογή. Αλληλεπιδρά με τις αντίστοιχες οντότητες σύμφωνα με τα use cases και τα robustness diagrams.
+
+Class: Post_article_Screen
+Description: Αντιπροσωπεύει την οθόνη 'Post article' στην εφαρμογή. Αλληλεπιδρά με τις αντίστοιχες οντότητες σύμφωνα με τα use cases και τα robustness diagrams.
+
+Class: Blog_Screen
+Description: Αντιπροσωπεύει την οθόνη 'Blog' στην εφαρμογή. Αλληλεπιδρά με τις αντίστοιχες οντότητες σύμφωνα με τα use cases και τα robustness diagrams.
+
+Class: Add_new_coupon_Screen
+Description: Αντιπροσωπεύει την οθόνη 'Add new coupon' στην εφαρμογή. Αλληλεπιδρά με τις αντίστοιχες οντότητες σύμφωνα με τα use cases και τα robustness diagrams.
+
+Class: Coupons_Screen
+Description: Αντιπροσωπεύει την οθόνη 'Coupons' στην εφαρμογή. Αλληλεπιδρά με τις αντίστοιχες οντότητες σύμφωνα με τα use cases και τα robustness diagrams.
+
+Class: Join_our_team_Screen
+Description: Αντιπροσωπεύει την οθόνη 'Join our team' στην εφαρμογή. Αλληλεπιδρά με τις αντίστοιχες οντότητες σύμφωνα με τα use cases και τα robustness diagrams.
+
+Class: Listing_details_Screen
+Description: Αντιπροσωπεύει την οθόνη 'Listing details' στην εφαρμογή. Αλληλεπιδρά με τις αντίστοιχες οντότητες σύμφωνα με τα use cases και τα robustness diagrams.
+
+Class: Add_new_listing_Screen
+Description: Αντιπροσωπεύει την οθόνη 'Add new listing' στην εφαρμογή. Αλληλεπιδρά με τις αντίστοιχες οντότητες σύμφωνα με τα use cases και τα robustness diagrams.
+
+Class: Calendar_view_Screen
+Description: Αντιπροσωπεύει την οθόνη 'Calendar view' στην εφαρμογή. Αλληλεπιδρά με τις αντίστοιχες οντότητες σύμφωνα με τα use cases και τα robustness diagrams.
+
+Class: Statistics_Screen
+Description: Αντιπροσωπεύει την οθόνη 'Statistics' στην εφαρμογή. Αλληλεπιδρά με τις αντίστοιχες οντότητες σύμφωνα με τα use cases και τα robustness diagrams.
+
+Class: Employees_Screen
+Description: Αντιπροσωπεύει την οθόνη 'Employees' στην εφαρμογή. Αλληλεπιδρά με τις αντίστοιχες οντότητες σύμφωνα με τα use cases και τα robustness diagrams.
+
+Class: Employee_Screen
+Description: Αντιπροσωπεύει την οθόνη 'Employee' στην εφαρμογή. Αλληλεπιδρά με τις αντίστοιχες οντότητες σύμφωνα με τα use cases και τα robustness diagrams.
+
+Class: Favorite
+Description: Αντιπροσωπεύει μια προτίμηση του πελάτη, όπως αποθηκευμένα καταστήματα ή προηγούμενες κρατήσεις. Συνδέεται με τον Customer και μπορεί να σχετίζεται με Store ή άλλα αντικείμενα.
+
