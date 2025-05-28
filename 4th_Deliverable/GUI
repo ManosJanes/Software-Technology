@@ -1,1 +1,366 @@
+import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
+public class BarberShopApp {
+    private JFrame mainFrame;
+    private String currentUser = "owner";
+    private final List<String> coupons = new ArrayList<>();
+    private final List<String> bookings = new ArrayList<>();
+    private final List<String> favoriteShops = new ArrayList<>();
+    private final List<String> blogPosts = new ArrayList<>();
+    private final List<String> listings = new ArrayList<>();
+
+    // Color scheme
+    private final Color ORANGE_PRIMARY = new Color(255, 165, 0);
+    private final Color WHITE_BG = new Color(255, 255, 255);
+    private final Color DARK_TEXT = new Color(60, 60, 60);
+
+    public BarberShopApp() {
+        listings.add("Barber Shop Athens");
+        listings.add("Barber Shop Patras");
+        blogPosts.add("Νέες προσφορές για το ΣΚ!");
+        blogPosts.add("Καινούργιες προσφορές για νέους πελάτες!");
+        prepareGUI();
+        showDashboard();
+    }
+
+    private void prepareGUI() {
+        mainFrame = new JFrame("Barber Shop Management System");
+        mainFrame.setSize(800, 600);
+        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mainFrame.setLayout(new BorderLayout());
+        mainFrame.getContentPane().setBackground(WHITE_BG);
+        mainFrame.setVisible(true);
+    }
+
+    private JTextField createStyledTextField() {
+        JTextField textField = new JTextField();
+        textField.setFont(new Font("Arial", Font.PLAIN, 14));
+        textField.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1),
+                BorderFactory.createEmptyBorder(5, 5, 5, 5)
+        ));
+        return textField;
+    }
+
+    private void styleButton(JButton button) {
+        button.setBackground(ORANGE_PRIMARY);
+        button.setForeground(Color.WHITE);
+        button.setBorder(BorderFactory.createEmptyBorder(8, 15, 8, 15));
+        button.setFont(new Font("Arial", Font.BOLD, 14));
+    }
+
+    private JLabel createSectionLabel(String text) {
+        JLabel label = new JLabel(text);
+        label.setFont(new Font("Arial", Font.BOLD, 18));
+        label.setForeground(ORANGE_PRIMARY);
+        label.setAlignmentX(Component.CENTER_ALIGNMENT);
+        return label;
+    }
+
+    private void showDashboard() {
+        mainFrame.getContentPane().removeAll();
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBorder(BorderFactory.createEmptyBorder(30, 50, 30, 50));
+        panel.setBackground(WHITE_BG);
+
+        panel.add(createSectionLabel(currentUser.equals("owner") ? "OWNER DASHBOARD" : "CUSTOMER MENU"));
+        panel.add(Box.createVerticalStrut(30));
+
+        if (currentUser.equals("owner")) {
+            addDashboardButton(panel, "Coupons", this::showCouponsScreen);
+            addDashboardButton(panel, "My Listings", this::showMyListings);
+            addDashboardButton(panel, "Employee Statistics", this::showEmployeeStatistics);
+            addDashboardButton(panel, "Blog Posts", this::showBlogScreen);
+            addDashboardButton(panel, "Register Phone Booking", this::registerPhoneBooking);
+            addDashboardButton(panel, "Add New Listing", this::addNewListing);
+        } else {
+            addDashboardButton(panel, "Book Appointment", this::bookAppointment);
+            addDashboardButton(panel, "My Bookings", this::showMyBookings);
+            addDashboardButton(panel, "Join Our Team", this::joinOurTeam);
+            addDashboardButton(panel, "Add Review", this::addReview);
+            addDashboardButton(panel, "Send Message to Owner", this::sendMessageToOwner);
+            addDashboardButton(panel, "Add to Favorites", this::addToFavorites);
+        }
+
+        panel.add(Box.createVerticalStrut(20));
+        addDashboardButton(panel, "Switch User", () -> {
+            currentUser = currentUser.equals("owner") ? "customer" : "owner";
+            showDashboard();
+        });
+
+        mainFrame.add(panel, BorderLayout.CENTER);
+        mainFrame.revalidate();
+        mainFrame.repaint();
+    }
+
+    private void addDashboardButton(JPanel panel, String text, Runnable action) {
+        JButton button = new JButton(text);
+        button.setAlignmentX(Component.CENTER_ALIGNMENT);
+        styleButton(button);
+        button.addActionListener(e -> action.run());
+        panel.add(button);
+        panel.add(Box.createVerticalStrut(10));
+    }
+
+    private void showCouponsScreen() {
+        mainFrame.getContentPane().removeAll();
+
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        panel.setBackground(WHITE_BG);
+
+        JLabel titleLabel = new JLabel("Coupons", SwingConstants.CENTER);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        titleLabel.setForeground(ORANGE_PRIMARY);
+        panel.add(titleLabel, BorderLayout.NORTH);
+
+        JPanel listPanel = new JPanel();
+        listPanel.setLayout(new BoxLayout(listPanel, BoxLayout.Y_AXIS));
+        listPanel.setBackground(WHITE_BG);
+
+        if (coupons.isEmpty()) {
+            JLabel emptyLabel = new JLabel("No coupons available", SwingConstants.CENTER);
+            emptyLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+            emptyLabel.setForeground(DARK_TEXT);
+            listPanel.add(emptyLabel);
+        } else {
+            for (String coupon : coupons) {
+                JPanel couponPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+                couponPanel.setBackground(WHITE_BG);
+
+                JLabel couponLabel = new JLabel(coupon);
+                couponLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+                couponLabel.setForeground(DARK_TEXT);
+
+                couponPanel.add(couponLabel);
+                listPanel.add(couponPanel);
+                listPanel.add(Box.createVerticalStrut(5));
+            }
+        }
+
+        JScrollPane scrollPane = new JScrollPane(listPanel);
+        scrollPane.getViewport().setBackground(WHITE_BG);
+        panel.add(scrollPane, BorderLayout.CENTER);
+
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
+        buttonPanel.setBackground(WHITE_BG);
+
+        JButton backBtn = new JButton("Back to Dashboard");
+        styleButton(backBtn);
+        backBtn.addActionListener(e -> showDashboard());
+
+        JButton addBtn = new JButton("Add New Coupon");
+        styleButton(addBtn);
+        addBtn.addActionListener(e -> addNewCoupon());
+
+        buttonPanel.add(backBtn);
+        buttonPanel.add(addBtn);
+        panel.add(buttonPanel, BorderLayout.SOUTH);
+
+        mainFrame.add(panel);
+        mainFrame.revalidate();
+        mainFrame.repaint();
+    }
+
+    private void addNewCoupon() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
+        panel.setBackground(WHITE_BG);
+
+        panel.add(createSectionLabel("Add New Coupon"));
+        panel.add(Box.createVerticalStrut(20));
+
+        JTextField codeField = createStyledTextField();
+        JTextField quantityField = createStyledTextField();
+        JTextField valueField = createStyledTextField();
+
+        panel.add(new JLabel("Coupon Code:"));
+        panel.add(codeField);
+        panel.add(Box.createVerticalStrut(10));
+        panel.add(new JLabel("Quantity:"));
+        panel.add(quantityField);
+        panel.add(Box.createVerticalStrut(10));
+        panel.add(new JLabel("Value:"));
+        panel.add(valueField);
+        panel.add(Box.createVerticalStrut(20));
+
+        int result = JOptionPane.showConfirmDialog(mainFrame, panel, "Add New Coupon",
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+        if (result == JOptionPane.OK_OPTION) {
+            String coupon = String.format("Code: %s, Qty: %s, Value: %s",
+                    codeField.getText(), quantityField.getText(), valueField.getText());
+
+            if (coupons.contains(coupon)) {
+                JOptionPane.showMessageDialog(mainFrame, "This coupon already exists");
+                return;
+            }
+
+            coupons.add(coupon);
+            showCouponsScreen();
+        }
+    }
+
+    private void showMyListings() {
+        showSimpleListScreen("My Listings", listings);
+    }
+
+    private void showEmployeeStatistics() {
+        List<String> stats = List.of("Γιάννης: 20 ραντεβού", "Άννα: 22 ραντεβού", "Μιχάλης: 14 ραντεβού");
+        showSimpleListScreen("Employee Statistics", stats);
+    }
+
+    private void showBlogScreen() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
+        panel.setBackground(WHITE_BG);
+
+        panel.add(createSectionLabel("Blog Posts"));
+        panel.add(Box.createVerticalStrut(20));
+
+        for (String post : blogPosts) {
+            panel.add(new JLabel("- " + post));
+        }
+
+        panel.add(Box.createVerticalStrut(20));
+
+        JTextField newPostField = createStyledTextField();
+        panel.add(new JLabel("New Post Title:"));
+        panel.add(newPostField);
+        panel.add(Box.createVerticalStrut(10));
+
+        JButton addBtn = new JButton("Add Post");
+        styleButton(addBtn);
+        addBtn.addActionListener(e -> {
+            blogPosts.add(newPostField.getText());
+            showBlogScreen();
+        });
+
+        panel.add(addBtn);
+
+        JButton backBtn = new JButton("Back to Dashboard");
+        styleButton(backBtn);
+        backBtn.addActionListener(e -> showDashboard());
+        panel.add(Box.createVerticalStrut(10));
+        panel.add(backBtn);
+
+        mainFrame.setContentPane(panel);
+        mainFrame.revalidate();
+        mainFrame.repaint();
+    }
+
+    private void registerPhoneBooking() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
+        panel.setBackground(WHITE_BG);
+
+        panel.add(createSectionLabel("Register Phone Booking"));
+
+        JTextField nameField = createStyledTextField();
+        JTextField phoneField = createStyledTextField();
+        JTextField dateField = createStyledTextField();
+        JTextField timeField = createStyledTextField();
+
+        panel.add(new JLabel("Customer Name:"));
+        panel.add(nameField);
+        panel.add(new JLabel("Phone Number:"));
+        panel.add(phoneField);
+        panel.add(new JLabel("Date:"));
+        panel.add(dateField);
+        panel.add(new JLabel("Time:"));
+        panel.add(timeField);
+
+        int result = JOptionPane.showConfirmDialog(mainFrame, panel, "Phone Booking",
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+        if (result == JOptionPane.OK_OPTION) {
+            bookings.add(nameField.getText() + " - " + dateField.getText() + " @ " + timeField.getText());
+            showDashboard();
+        }
+    }
+
+    private void addNewListing() {
+        String name = JOptionPane.showInputDialog(mainFrame, "Enter Shop Name:");
+        if (name != null && !name.trim().isEmpty()) {
+            listings.add(name);
+            JOptionPane.showMessageDialog(mainFrame, "Listing added.");
+        }
+    }
+
+    private void bookAppointment() {
+        registerPhoneBooking();
+    }
+
+    private void showMyBookings() {
+        showSimpleListScreen("My Bookings", bookings);
+    }
+
+    private void joinOurTeam() {
+        JOptionPane.showMessageDialog(mainFrame, "Ευχαριστούμε, θα επικοινωνήσουμε σύντομα μαζί σας.");
+    }
+
+    private void addReview() {
+        String review = JOptionPane.showInputDialog(mainFrame, "Δώστε την κριτική σας:");
+        if (review != null && !review.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(mainFrame, "Thanks for the feedback!");
+        }
+    }
+
+    private void sendMessageToOwner() {
+        JTextArea messageArea = new JTextArea(5, 20);
+        int result = JOptionPane.showConfirmDialog(mainFrame, new JScrollPane(messageArea), "Send Message",
+                JOptionPane.OK_CANCEL_OPTION);
+        if (result == JOptionPane.OK_OPTION) {
+            JOptionPane.showMessageDialog(mainFrame, "Message sent!");
+        }
+    }
+
+    private void addToFavorites() {
+        String shop = JOptionPane.showInputDialog(mainFrame, "Τοποθετήστε το κατάστημα στα Αγαπημένα σας:");
+        if (shop != null && !shop.trim().isEmpty()) {
+            favoriteShops.add(shop);
+            JOptionPane.showMessageDialog(mainFrame, "Added to favorites.");
+        }
+    }
+
+    private void showSimpleListScreen(String title, List<String> items) {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
+        panel.setBackground(WHITE_BG);
+
+        panel.add(createSectionLabel(title));
+        panel.add(Box.createVerticalStrut(20));
+
+        if (items.isEmpty()) {
+            panel.add(new JLabel("No data available"));
+        } else {
+            for (String item : items) {
+                panel.add(new JLabel("- " + item));
+            }
+        }
+
+        JButton backBtn = new JButton("Back to Dashboard");
+        styleButton(backBtn);
+        backBtn.addActionListener(e -> showDashboard());
+
+        panel.add(Box.createVerticalStrut(20));
+        panel.add(backBtn);
+
+        mainFrame.setContentPane(panel);
+        mainFrame.revalidate();
+        mainFrame.repaint();
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(BarberShopApp::new);
+    }
+}
