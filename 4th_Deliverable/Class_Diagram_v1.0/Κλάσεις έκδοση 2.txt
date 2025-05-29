@@ -296,6 +296,7 @@ Owner
 -address:String
 -phone:String
 -email:string
+-StoreId:String
 
 Statistics
 -metric:String
